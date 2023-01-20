@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Button } from '@aws-amplify/ui-react'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,135 +17,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <nav>
-        <div className="brandWrapper">
-          <a href="#main">Portfolio</a>
-        </div>
-        <ul>
-
-          <li><a style={{ border: '1px solid #459; width: 100%; height: 100%; padding: 1rem 2rem', backgroundColor: '#934', color: '#fff' }} href="/protected-page">Protected Page</a></li>
-        </ul>
-        <a href="javascript:;" className="nav-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </a>
+        <Link href='protected-page' passHref><Button variation='warning' style={{ maxWidth: '300px' }}>View Protected Page</Button></Link>
       </nav>
 
       <main id="main">
-        <div className="landingBanner">
-          <div className="titleWrapper">
-            <div>
-              <div className="block"></div>
-              <h1>Ukpe</h1>
-              <h1>Chinedu</h1>
-              <p><i className="fa fa-briefcase"></i> <strong>Fullstack Developer</strong> </p>
-              <p>Chinedu is a seasoned web developer with passion for technology. With over four years' professional experience in web technologies, cloud computing and systems design. Chinedu is also passionate about Artificial Intelligence (AI) and Machine Learning (ML).</p>
-              <a href="javascript:;" className="bannerLink">Read more about me <i className="fa fa-arrow-right"></i></a>
-            </div>
-          </div>
-          <div className="imageWrapper">
-            <img src="static/img/profile-img.png" alt="" />
-          </div>
-        </div>
 
-        <div className="scene products" id="about">
-          <div className="technologies">
-            <img src={"static/img/icons/aws.png"} alt="" />
-            <img src={"static/img/icons/laravel.png"} alt="" />
-            <img src={"static/img/icons/node-js.png"} alt="" />
-            <img src={"static/img/icons/react-js.png"} alt="" />
-          </div>
-          <div className="experience-wrapper">
-            <div className="years">
-              <h1 className="number">5+</h1>
-              <p>Years Experience Working</p>
-            </div>
-            <div className="experties">
-              <h4>Web design and development. Cloud deployment, CI/CD configuration and mobile expert.</h4>
-              <div className="tech-stack">
-                <div className="stack-item active">
-                  <i className="fa fa-sitemap"></i>
-                  <p>Web development</p>
-                  <a href="#contact-section">Discover More <i className="fa fa-arrow-right"></i></a>
-                </div>
-                <div className="stack-item">
-                  <i className="fa fa-cloud"></i>
-                  <p>Cloud deployment</p>
-                  <a href="#contact-section">Discover More <i className="fa fa-arrow-right"></i></a>
-                </div>
-                <div className="stack-item">
-                  <i className="fa fa-mobile-phone"></i>
-                  <p>Mobile Applications</p>
-                  <a href="#contact-section">Discover More <i className="fa fa-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="scene achievements" id="achievements">
-          <hgroup>
-            <h1 className="title">Achievements</h1>
-            <h2 className="subtitle">See how far I have come in this line of work. quite interesting</h2>
-          </hgroup>
-          <div className="stripe">
-            <h3> <i className="fa fa-briefcase"></i> 29 <span>Projects Completed</span></h3>
-          </div>
-          <div className="stripe">
-            <h3><i className="fa fa-cog"></i> 1 <span>Bachelor's degree</span></h3>
-            <p className="text-white">Benue State University, Makurdi - 2016</p>
-          </div>
-          <div className="stripe">
-            <h3><i className="fa fa-users"></i> 16+ <span>Clients satisfied</span></h3>
-          </div>
-        </div>
-
-        <div className="scene bg-white contact-section" id="contact-section">
-          <div className="bubble"></div>
-          <h1 className="title text-primary">Send me a mail</h1>
-        </div>
-
-        <div style={{ padding: "2em" }}>
-
-        </div>
-
-        <div className="staticSocial">
-          <a target="_blank" href="https://github.com/chineduukpe"><i className="fa fa-github"></i></a>
-          <a target="_blank" href="https://linkedin.com/in/chinedu-ukpe"><i className="fa fa-linkedin"></i></a>
-          <a target="_blank" href="https://twitter.com/chineduukpe"><i className="fa fa-twitter"></i></a>
-          <a target="_blank" href="https://instagram.com/chinedu_uf"><i className="fa fa-instagram"></i></a>
-        </div>
-
-        <div className="theme-selector">
-          <a href="javascript"><i className="fa fa-cog"></i> Select theme</a>
-          <div className="theme-types">
-            <a href="javascript:;" data-theme-url="static/css/style.css"><i className="fa fa-sun"></i>Light</a>
-            <a href="javascript:;" data-theme-url="static/css/style-dark.css"><i className="fa fa-moon"></i>dark</a>
-          </div>
-        </div>
       </main>
       <footer>
-        <div className="logo-wrapper">
-          <img src="static/img/slid-logo1.jpg" alt="" />
-        </div>
-        <div className="services-wrapper">
-          <div className="designs-wrapper">
-            <h3 className="text-center text-white">Web Designs</h3>
-            <ul>
-              <li><a target="_blank" href="http://slidlanding-1.herokuapp.com/login1.html">Login page design</a></li>
-              <li><a target="_blank" href="http://sliddashboard-1.herokuapp.com/dashboard.php">Dashboard Design</a></li>
-              <li><a target="_blank" href="http://slidlanding-1.herokuapp.com/dashbaord/index.html">Dashboard Design 2</a></li>
-              <li><a target="_blank" href="http://slidlanding-1.herokuapp.com/index3.html">Landing page design</a></li>
-            </ul>
-          </div>
-          <div className="designs-wrapper">
-            <h3 className="text-center text-white">Other designs</h3>
-            <ul>
-              <li><a target="_blank" href="http://sliddashboard-1.herokuapp.com/">Login page design 2</a></li>
-              <li><a target="_blank" href="http://slidlanding-1.herokuapp.com/share.html">Share page design</a></li>
-            </ul>
-          </div>
-        </div>
+        <p>Some Dummy content would go here</p>
 
       </footer>
       <p className="copyright">
