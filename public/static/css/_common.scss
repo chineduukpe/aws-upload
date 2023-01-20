@@ -1,0 +1,441 @@
+@import './config';
+
+/* VARIABLES */
+$nav-height: 100px;
+
+/* END VARIABLES */
+
+
+html{
+    background-image: url(../img/bg/bg001.jpeg);
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+/* I AM BUILDING DESKTOP FIRST APPROACH, BITE ME! */
+nav{
+    // @include shadow(3px,.2);
+    // @include flexElement();
+    position: fixed;
+    height: $nav-height;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    // background-color: $white;
+    padding: 0 30px;
+    z-index: 1000;
+    .brandWrapper{
+        width: 60%;
+        a{
+            color: $primary-color;
+            span{
+                font-weight: 900;
+            }
+            font-size: 20pt;
+            &:hover{
+                color: darken($primary-color,10);
+            }
+        }
+    }
+    ul{
+        width: 20%;
+        li{
+            display: inline-block;
+            margin-right: 20px;
+            a{
+                height: 100%;
+                width: 100%;
+                color: lighten($black, 10);
+                font-size: 12pt;
+                font-weight: 400;
+                &:hover{
+                    color: lighten($black,0);
+                }
+                
+            }
+        }
+    }
+    
+    *{
+        line-height: 100px;
+    }
+}  
+
+/* END NAV */
+
+/* START MAIN */
+main{
+    width: 100%;
+    padding-top: $nav-height;
+    .landingBanner{
+        background-color: rgba($white, .98);
+        min-height: calc(100vh - 100px);
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding: 2em;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        padding-bottom: 0;
+        
+        .bubble{
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background-image: linear-gradient(to right, $primary-color, darken($primary-color, 30));
+            box-shadow: -15px -10px 20px rgba($black,.2) ;
+            animation: shadow-wave 10s linear infinite;
+        }
+        
+        .block{
+            content: "";
+            width: 50px;
+            height: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 10px darken($white, 30);
+            background-color: $primary-color;
+            position: relative;
+            top: -15px;
+            cursor: pointer;
+
+            &::after{
+                animation: doublewave 3s linear infinite;
+            }
+            &::before{
+                animation: doublewave2 3s linear infinite;
+                animation-delay: 500ms;
+            }
+
+            &::after, &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 2px solid $white;
+                transform: scale(1.0);
+                transition: all 400ms linear;
+            }
+            &::before{
+                transition-delay: 500ms;                
+            }
+            &:hover{
+                
+                &::after{
+                    transform: scale(1.3);
+                    border: 2px solid darken($white, 20);
+                    animation: none;
+                }
+                &::before{ 
+                    animation: none;
+                    transform: scale(1.5);
+                    border: 2px solid $primary-color; 
+                }
+            }
+        
+        }
+        .titleWrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 60%;
+            padding-left: 4em;
+            h1{
+                font-size: 32pt;
+                font-weight: 900;
+                color: darken($white, 50);
+                color: $secondary-color;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-transform: uppercase;
+            } 
+            h1:nth-of-type(2){
+                font-size: 60pt;
+                color: $primary-color;
+            }
+            p{
+                color: lighten($black, 10);
+                line-height: 2.0;
+                font-size: 10pt;
+                width: 80%;
+                font-weight: 300;
+            }
+            a{
+                margin-top: 20px;
+                color: $primary-color;
+                line-height: 3;
+                // color: $white;
+                transition: all 300ms linear;
+                padding: 10px 20px;
+                position: relative;
+
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border: 2px solid $primary-color;
+                    transform: scale(1.0);
+                    transition: all 300ms linear;
+                    border-color: darken($primary-color, 10);
+                }
+                &:hover{
+                    // color: darken($primary-color, 10);
+                    color: $white;
+                    background-color: $primary-color;
+                    &::after{
+                        transform: scale(1.4);
+                        border-color: rgba($white,0);
+                    }
+                }
+            }
+            *{
+                margin-bottom: 10px;
+            }
+        }
+        .imageWrapper{
+            width: 40%;
+            position: relative;
+
+            img{
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+/* END MAIN */
+
+
+.scene{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+.theme-selector{
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    > a{
+        font-size: 10pt;
+        color: darken($white, 30);
+        line-height: 2;
+    }
+    .theme-types{
+        
+        a{
+            font-size: 10pt;
+            width: 20px;
+            height: 20px;
+            background-color: $primary-color;
+            text-align: center;
+            color: $white;
+            padding: 5px 10px;
+        }
+    }
+}
+
+.staticSocial{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    a{
+        width: 50px;
+        height: 50px;
+        // background: ;
+        color: $white;
+        background: $primary-color;
+        text-align: center;
+        line-height: 50px;
+        margin-bottom: 3px;
+        transition: all 500ms linear;
+        &:hover{
+            background-color: darken($white, 20);
+            color: $primary-color;
+        }
+    }
+}
+
+.products{
+    padding: 4em;
+    background-color: darken($white,4);
+    .technologies{
+        width: 80%;
+        display: flex;
+        justify-content: space-around;
+        margin: 0 auto;
+        img, svg{
+            width: 50px;
+        }
+    }
+
+    .experience-wrapper{
+        margin-top: 2em;
+        .years, .experties{
+            padding: 3em;
+            display: inline-block;
+        }
+        .years{
+            width: 20%;
+            h1{
+                font-size: 72pt;
+                font-weight: 900;
+                color: $primary-color;
+                line-height: 1.5;
+            }
+            p{
+                font-size: 14pt;
+                line-height: 1.5;
+                font-weight: 400;
+                color: $primary-color;
+            }
+        }
+        .experties{
+            width: 70%;
+            h4{
+                font-size: 24pt;
+                font-weight: 700;
+                line-height: 1.3;
+                color: darken($primary-color, 20);
+            }
+            .tech-stack{
+                width: 100%;
+                margin-top: 30px;
+                .stack-item{
+                    width: 30%;
+                    background-color: darken($white, 0);
+                    display: inline-block;
+                    padding: 2em;
+                    align-items: center;
+                    // cursor: pointer;
+                    transition: all 200ms linear;
+                    >i{
+                        font-size: 30pt;
+                    }
+                    *{
+                        line-height: 1.5;
+                        color: $primary-color;
+                        margin-top: 15px;
+                    }
+                    a{
+                        font-weight: 300;
+                        font-size: 10pt;
+                        display: block;
+                        overflow: hidden;
+                        color: darken($white, 50);
+                        i{
+                            color: darken($white, 50);
+                            position: relative;
+                            right: -50px;
+                            transition: right 200ms linear;
+                            opacity: 0;
+                        }
+                        
+                    }
+                    &.active, &:hover{
+                        background-color: $primary-color;
+                        box-shadow: 0 0 10px darken($white, 30);
+                        i{
+                            opacity: 1;
+                            right: -10px;
+                        }
+                        *{
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.achievements{
+    padding-top: 10em;
+    .stripe{
+        display: block;
+        width: 400px;
+        padding: 2em;
+        background-image: linear-gradient(to right,$primary-color, darken($primary-color, 20));
+        margin-bottom: 30px;
+        border-right: 3px solid $secondary-color;
+        h3{
+            color: $white;
+            font-size: 18pt;
+            font-weight: 900;
+            span{
+                font-weight: 300;
+            }
+        }
+        &:nth-of-type(2){
+            width: 600px;
+        }
+        &:nth-of-type(3){
+            width: 800px;
+        }
+    }
+}
+
+
+/* UTILITIES */
+.bg-white{
+    background-color: $white;
+}
+
+/* END UTILITIES */
+
+/* ANIMATIONS */
+@keyframes shadow-wave {
+    50%{
+        box-shadow: 0 0 50px rgba(darken($white, 20),.4);
+    }
+    100%{
+        box-shadow: -15px -10px 20px rgba($black,.2) ;
+    }
+}
+
+@keyframes doublewave {
+    10%{
+        transform: scale(1.3);
+        border: 2px solid darken($white, 20);
+    }
+    30%{
+        transform: scale(1.3);
+        border: 2px solid darken($white, 20);
+    }
+    60%{
+        transform: scale(1);
+        border: 2px solid rgba(darken($white, 20), 0);
+    }
+}
+
+
+@keyframes doublewave2 {
+    10%{
+        transform: scale(1.5);
+        border: 2px solid $primary-color;
+    }
+    30%{
+        transform: scale(1.5);
+        border: 2px solid $primary-color;
+    }
+    50%{
+        transform: scale(1);
+        border: 2px solid rgba($primary-color, 0);
+    }
+}
+
+/* END ANIMATIONS */
