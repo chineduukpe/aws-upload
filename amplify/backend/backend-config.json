@@ -1,6 +1,24 @@
 {
+  "api": {
+    "charknextplayground": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
-    "nextjsplayground": {
+    "charknextplayground968a3d79": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -9,15 +27,12 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
-          ],
+          "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"

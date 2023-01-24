@@ -1,10 +1,14 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
+import { ChakraProvider } from "@chakra-ui/react"
 import '@aws-amplify/ui-react/styles.css';
-import '../public/static/css/style.css'
 
-const App = ({ Component, pageProps }) => {
+function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page)
-  return getLayout(<Component {...pageProps} />)
+  return (
+    <ChakraProvider>
+      {getLayout(<Component {...pageProps} />)}
+    </ChakraProvider>
+  )
 }
 
-export default App;
+export default MyApp
