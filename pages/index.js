@@ -1,10 +1,63 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
-import { Button } from '@aws-amplify/ui-react'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { Button } from '@aws-amplify/ui-react';
+import { S3 } from 'aws-sdk';
+import { useEffect, useState } from 'react';
+import { useMotionValue } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
+import ReactLoader from 'react-loader';
+
+const s3Client = new S3({
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET,
+  region: 'eu-west-1',
+});
 
 export default function Home() {
+  const [fileToUpload, setFileToUpload] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [upload, setUpload] = useState(null);
+  const progress = useMotionValue();
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  useEffect(() => {
+    progress.set(0);
+    setUpload(null);
+  }, [fileToUpload]);
+  useEffect(() => {
+    return upload?.abort();
+  }, []);
+
+  const handleSubmit = async () => {
+    if (!fileToUpload) return;
+    try {
+      setLoading(true);
+      const params = {
+        Bucket: process.env.NEXT_PUBLIC_S3_BUCKET,
+        Key: `${uuidv4()}-${fileToUpload.name}`,
+        Body: fileToUpload,
+        apiVersion: '2006-03-01',
+        Region: 'us-east-1',
+      };
+
+      const upload = s3Client.upload(params);
+      upload.on('httpUploadProgress', (p) => {
+        console.log(p.loaded / p.total);
+        progress.set(p.loaded / p.total);
+        setUploadProgress(p.loaded / p.total);
+      });
+      const uploadData = await upload.promise();
+      console.log(uploadData);
+      console.log(`File uploaded successfully: ${fileToUpload.name}`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,53 +68,28 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <Link href="https://nextjs.org">Profit INC</Link>
+          Upload Progress:{' '}
+          <Link href="https://nextjs.org">
+            {((uploadProgress ?? 0) * 100).toFixed(0)}
+          </Link>
         </h1>
 
         <p className={styles.description}>
-          Get started by {' '}
-          <code className={styles.code}>Signing up</code>
+          Get started by <code className={styles.code}>Signing up</code>
         </p>
 
-        <div className={styles.grid}>
-          <Link href="https://nextjs.org/docs" className={styles.card}>
-            <>
-              <h2>Analyze Data &rarr;</h2>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </>
-          </Link>
-
-          <Link href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Data Aggregation &rarr;</h2>
-          </Link>
-
-          <Link
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Quickbooks Integration &rarr;</h2>
-          </Link>
-
-          <Link
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Go Mobile &rarr;</h2>
-          </Link>
-        </div>
         <div>
-
-          <Link href='/dashboard' passHref><Button variation='primary'>Go to Protected Dashboard</Button></Link>
+          <input
+            type="file"
+            onChange={(e) => setFileToUpload(e.target.files[0])}
+          />
+          {/* <Link href="/dashboard" passHref> */}
+          <Button onClick={handleSubmit} variation="primary">
+            {loading ? <ReactLoader /> : 'Upload file'}
+          </Button>
+          {/* </Link> */}
         </div>
       </main>
-
-      <footer className={styles.footer}>
-
-        Powered by{' '}
-        <span className={styles.logo}>
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </span>
-      </footer>
     </div>
-  )
+  );
 }
